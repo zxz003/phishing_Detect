@@ -1,4 +1,4 @@
-from sklearn.naive_bayes import GaussianNB as GNB
+from sklearn.ensemble import RandomForestClassifier as RFC
 from sklearn.metrics import accuracy_score
 
 import numpy as np
@@ -7,18 +7,18 @@ from decision_tree import load_data
 
 
 if __name__ == '__main__':
-    print "Using Naive Bayes technique to detect phishing websites"
+    print "Using Random Forest technique to detect phishing websites"
 
     # Load the training data
     train_inputs, train_outputs, test_inputs, test_outputs = load_data()
     print "Training data loaded."
 
-    # Create a NB classifier
-    classifier = GNB()
-    print "Gaussian Naive Bayes classifier created."
+    # Create a RF classifier
+    classifier = RFC()
+    print "Random Forest classifier created."
 
     print "Beginning model training."
-    # Train the NB classifier
+    # Train the RF classifier
     classifier.fit(train_inputs, train_outputs)
     print "Model training completed."
 
@@ -28,4 +28,4 @@ if __name__ == '__main__':
 
     # Print the accuracy (percentage of phishing websites correctly predicted)
     accuracy = 100.0 * accuracy_score(test_outputs, predictions)
-    print "The accuracy of your Naive Bayes on testing data is: " + str(accuracy)
+    print "The accuracy of Random Forest on testing data is: " + str(accuracy)
