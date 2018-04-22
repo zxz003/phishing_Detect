@@ -18,4 +18,4 @@ website and by `1` if it is a website used for phishing.
 
 1. Choose a specific method and improve its performance on predit the phishing site.
 
-2. What approatch to take to improve the performance? (Hybrid algorithm, additional dataset, etc)
+2. What approach to take to improve the performance? (Hybrid algorithm, additional dataset, etc)
