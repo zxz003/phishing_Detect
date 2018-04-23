@@ -29,3 +29,10 @@ if __name__ == '__main__':
     # Print the accuracy (percentage of phishing websites correctly predicted)
     accuracy = 100.0 * accuracy_score(test_outputs, predictions)
     print "The accuracy of Random Forest on testing data is: " + str(accuracy)
+
+
+    #1. training size and testing accurcy
+    #2. select which feature is more important?
+    #3. and which subset is more important to determine the phishing site
+    #4. try different classifier for the dataset
+    #5. statical test and T-test for selecting useful features
