@@ -12,10 +12,9 @@ def load_data():
     training_data = np.genfromtxt('dataset.csv', delimiter=',', dtype=np.int32)
 
     # Extract the inputs from the training data array (all columns but the last one)
-    #inputs = training_data[:, [0,1,3,8,14,16,18,22,23]]
-    #inputs = training_data[:, [6,7,8,9,13,14,15,16,24,26,29]]
-    inputs = training_data[:,:-1]
-    # true_input = training_data[10001:10015,30]
+    # inputs = training_data[:, [6,7,8,9,13,14,15,16,24,26,29]]       #93.9
+    # inputs = training_data[:,:-1]
+    inputs = training_data[:, [5, 6, 7, 8, 12, 13, 14, 15, 23, 25, 28]] #93.8
     # Extract the outputs from the training data array (last column)
     outputs = training_data[:, -1]
 
@@ -48,10 +47,6 @@ if __name__ == '__main__':
     # Use the trained classifier to make predictions on the test data
     predictions = classifier.predict(test_inputs)
     print "Predictions on testing data computed."
-    
-    
-    #score = precision_score(true_input, predictions, average=None)
-    #print "Score: "+ str(true_input)
 
     # Print the accuracy (percentage of phishing websites correctly predicted)
     accuracy = 100.0 * accuracy_score(test_outputs, predictions)
@@ -62,45 +57,24 @@ if __name__ == '__main__':
     print ('\n')
     print("Confusion matrix:\n%s" % confusion_matrix)
     print ('\n')
+    '''
+    Note:
+    1. Precision: P = TP/TP + FP - all correct classified / all classified
+
+    2. Recall: R = TP/TP + FN - all correct classified / should be classified
+
+    3. F1 weight the Precision and Recall, in other word choose which one is more important
+        Default is P = R 
+
+    4. Support is the number of occurrences of each class in test_outputs
+    '''
     print ('precision: \t{}'.format(precision))
     print ('recall: \t{}'.format(recall))
     print ('fscore: \t{}'.format(fscore))
     print ('support: \t{}'.format(support))
 
-    '''
-    Note:
-    1. Precision: P = TP/TP + FP - all correct classified / all classified
-    
-    2. Recall: R = TP/TP + FN - all correct classified / should be classified
-    
-    3. F1 weight the Precision and Recall, in other word choose which one is more important
-        Default is P = R 
-        
-    4. Support is the number of occurrences of each class in test_outputs
-    '''
-
-
-    
-    #score = classifier.
     importance = classifier.feature_importances_
     print "\nFeature Importances: \n" + str(importance)
-    #prob = classifier.predict_proba(train_inputs)
-    #print "Probabilities: "+ str(prob)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     #1. training size and testing accurcy
@@ -108,3 +82,7 @@ if __name__ == '__main__':
     #3. and which subset is more important to determine the phishing site
     #4. try different classifier for the dataset
     #5. statical test and T-test for selecting useful features
+
+
+    # forward feature addition
+    # backward feature elimination
