@@ -1,9 +1,6 @@
 from sklearn.ensemble import RandomForestClassifier as RFC
 from sklearn.metrics import accuracy_score
-from sklearn.metrics import f1_score
-from sklearn.metrics import precision_score
-from sklearn.metrics import recall_score
-
+from sklearn.metrics import precision_recall_fscore_support as score
 
 import numpy as np
 
@@ -18,7 +15,7 @@ def load_data():
     #inputs = training_data[:, [0,1,3,8,14,16,18,22,23]]
     #inputs = training_data[:, [6,7,8,9,13,14,15,16,24,26,29]]
     inputs = training_data[:,:-1]
-    true_input = training_data[10001:10015,30]
+    # true_input = training_data[10001:10015,30]
     # Extract the outputs from the training data array (last column)
     outputs = training_data[:, -1]
 
@@ -29,15 +26,16 @@ def load_data():
     testing_outputs = outputs[10001:]
 
     # Return the four arrays
-    return training_inputs, training_outputs, testing_inputs, testing_outputs, true_input
+    return training_inputs, training_outputs, testing_inputs, testing_outputs
+        #, true_input
 
 
 
 if __name__ == '__main__':
-    print "Using Random Forest technique to detect phishing websites"
+    print "Using Random Forest technique to detect phishing websites\n"
 
     # Load the training data
-    train_inputs, train_outputs, test_inputs, test_outputs,true_input = load_data()
+    train_inputs, train_outputs, test_inputs, test_outputs = load_data()
     print "Training data loaded."
 
     # Create a RF classifier
@@ -61,21 +59,45 @@ if __name__ == '__main__':
     accuracy = 100.0 * accuracy_score(test_outputs, predictions)
     print "\nThe Accuracy of Random Forest on testing data is: " + str(accuracy)
 
-    f1 = f1_score(test_outputs, predictions, average='micro')
-    print "The F1 score of Random Forest is: " + str(f1)
+    precision, recall, fscore, support = score(test_outputs, predictions)
 
-    pre = precision_score(test_outputs, predictions, average='micro')
-    print "The precision for Random Forest on testing data is: " + str(pre)
+    print ('precision: \t{}'.format(precision))
+    print ('recall: \t{}'.format(recall))
+    print ('fscore: \t{}'.format(fscore))
+    print ('support: \t{}'.format(support))
 
-    recall = recall_score(test_outputs, predictions, average='micro')
-    print "The recall value for Random Forest on testing data is: " + str(recall)
+    '''
+    Note:
+    1. Precision: P = TP/TP + FP - all correct classified / all classified
     
+    2. Recall: R = TP/TP + FN - all correct classified / should be classified
+    
+    3. F1 weight the Precision and Recall, in other word choose which one is more important
+        Default is P = R 
+    '''
+
+
     
     #score = classifier.
     importance = classifier.feature_importances_
-    print "\nFeature Importances: " + str(importance)
+    print "\nFeature Importances: \n" + str(importance)
     #prob = classifier.predict_proba(train_inputs)
     #print "Probabilities: "+ str(prob)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     #1. training size and testing accurcy
