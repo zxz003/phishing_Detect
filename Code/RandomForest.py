@@ -12,9 +12,11 @@ def load_data():
     training_data = np.genfromtxt('dataset.csv', delimiter=',', dtype=np.int32)
 
     # Extract the inputs from the training data array (all columns but the last one)
-    # inputs = training_data[:, [6,7,8,9,13,14,15,16,24,26,29]]       #93.9
+    # inputs = training_data[:, [0,2,3,4,5,8,9,10,11,12,16,17,19,20,21,22,23,24,26,27,29]]    #Only 2
     # inputs = training_data[:,:-1]
-    inputs = training_data[:, [5, 6, 7, 8, 12, 13, 14, 15, 23, 25, 28]] #93.8
+    inputs = training_data[:, [ 0, 1, 5, 6, 7, 8, 12, 13, 14, 15, 23, 24, 25, 26, 27, 28]] #95.8 - 16
+    # inputs = training_data[:, [1,6,7,13,14,15,25,28]]
+    # inputs = training_data[:, [23,25,26,27]]
     # Extract the outputs from the training data array (last column)
     outputs = training_data[:, -1]
 
@@ -22,8 +24,8 @@ def load_data():
     training_inputs = inputs[:10000]
     training_outputs = outputs[:10000]
     # testing size is 1054
-    testing_inputs = inputs[10001:]
-    testing_outputs = outputs[10001:]
+    testing_inputs = inputs[10000:]
+    testing_outputs = outputs[10000:]
 
     # Return the four arrays
     return training_inputs, training_outputs, testing_inputs, testing_outputs
