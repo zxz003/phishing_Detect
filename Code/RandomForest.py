@@ -4,7 +4,9 @@ from sklearn.metrics import f1_score
 from sklearn.metrics import precision_score
 from sklearn.metrics import recall_score
 
+
 import numpy as np
+
 
 
 def load_data():
@@ -13,19 +15,21 @@ def load_data():
     training_data = np.genfromtxt('dataset.csv', delimiter=',', dtype=np.int32)
 
     # Extract the inputs from the training data array (all columns but the last one)
-    inputs = training_data[:, [0,1,3,8,14,16,18,22,23]]
-
+    #inputs = training_data[:, [0,1,3,8,14,16,18,22,23]]
+    #inputs = training_data[:, [6,7,8,9,13,14,15,16,24,26,29]]
+    inputs = training_data[:,:-1]
+    true_input = training_data[10001:10015,30]
     # Extract the outputs from the training data array (last column)
     outputs = training_data[:, -1]
 
     # Separate the training and testing data
     training_inputs = inputs[:10000]
     training_outputs = outputs[:10000]
-    testing_inputs = inputs[10000:]
-    testing_outputs = outputs[10000:]
+    testing_inputs = inputs[10001:]
+    testing_outputs = outputs[10001:]
 
     # Return the four arrays
-    return training_inputs, training_outputs, testing_inputs, testing_outputs
+    return training_inputs, training_outputs, testing_inputs, testing_outputs, true_input
 
 
 
@@ -33,7 +37,7 @@ if __name__ == '__main__':
     print "Using Random Forest technique to detect phishing websites"
 
     # Load the training data
-    train_inputs, train_outputs, test_inputs, test_outputs = load_data()
+    train_inputs, train_outputs, test_inputs, test_outputs,true_input = load_data()
     print "Training data loaded."
 
     # Create a RF classifier
@@ -48,10 +52,14 @@ if __name__ == '__main__':
     # Use the trained classifier to make predictions on the test data
     predictions = classifier.predict(test_inputs)
     print "Predictions on testing data computed."
+    
+    
+    #score = precision_score(true_input, predictions, average=None)
+    #print "Score: "+ str(true_input)
 
     # Print the accuracy (percentage of phishing websites correctly predicted)
     accuracy = 100.0 * accuracy_score(test_outputs, predictions)
-    print "The accuracy of Random Forest on testing data is: " + str(accuracy)
+    print "\nThe Accuracy of Random Forest on testing data is: " + str(accuracy)
 
     f1 = f1_score(test_outputs, predictions, average='micro')
     print "The F1 score of Random Forest is: " + str(f1)
@@ -61,6 +69,13 @@ if __name__ == '__main__':
 
     recall = recall_score(test_outputs, predictions, average='micro')
     print "The recall value for Random Forest on testing data is: " + str(recall)
+    
+    
+    #score = classifier.
+    importance = classifier.feature_importances_
+    print "\nFeature Importances: " + str(importance)
+    #prob = classifier.predict_proba(train_inputs)
+    #print "Probabilities: "+ str(prob)
 
 
     #1. training size and testing accurcy
