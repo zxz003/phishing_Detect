@@ -1,5 +1,5 @@
-# Detect Phishing website using differernt machine learning techniques
-This repo is for Spring 2018 OSS project. Detecting phishing website via different machine learning techniques. Most of our code was from or inspired by npapernot's "Detecting phishing websites using a decision tree" you can find more [here](https://github.com/npapernot/phishing-detection).
+# Detect Phishing website using machine learning techniques
+This repo is for Spring 2018 OSS project. Detecting phishing website via different machine learning techniques. Some of our code was from or inspired by npapernot's "Detecting phishing websites using a decision tree" you can find more [here](https://github.com/npapernot/phishing-detection).
 
 ## Installation
 
@@ -15,7 +15,7 @@ Each website in the dataset is labeled by `-1` if it is not a phishing
 website and by `1` if it is a website used for phishing.
 
 ## What next?
-
 1. Choose a specific method and improve its performance on predit the phishing site.
-
+(Done on 23/04/2018)
 2. What approach to take to improve the performance? (Hybrid algorithm, additional dataset, etc)
+(Working starts 23/04/2018)
