@@ -1,9 +1,9 @@
+import numpy as np
+
 from sklearn.ensemble import RandomForestClassifier as RFC
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import precision_recall_fscore_support as score
-
-import numpy as np
-
+from pandas_confusion import ConfusionMatrix
 
 
 def load_data():
@@ -22,14 +22,12 @@ def load_data():
     # Separate the training and testing data
     training_inputs = inputs[:10000]
     training_outputs = outputs[:10000]
+    # testing size is 1054
     testing_inputs = inputs[10001:]
     testing_outputs = outputs[10001:]
 
     # Return the four arrays
     return training_inputs, training_outputs, testing_inputs, testing_outputs
-        #, true_input
-
-
 
 if __name__ == '__main__':
     print "Using Random Forest technique to detect phishing websites\n"
@@ -60,7 +58,10 @@ if __name__ == '__main__':
     print "\nThe Accuracy of Random Forest on testing data is: " + str(accuracy)
 
     precision, recall, fscore, support = score(test_outputs, predictions)
-
+    confusion_matrix = ConfusionMatrix(test_outputs, predictions)
+    print ('\n')
+    print("Confusion matrix:\n%s" % confusion_matrix)
+    print ('\n')
     print ('precision: \t{}'.format(precision))
     print ('recall: \t{}'.format(recall))
     print ('fscore: \t{}'.format(fscore))
@@ -74,6 +75,8 @@ if __name__ == '__main__':
     
     3. F1 weight the Precision and Recall, in other word choose which one is more important
         Default is P = R 
+        
+    4. Support is the number of occurrences of each class in test_outputs
     '''
 
 
