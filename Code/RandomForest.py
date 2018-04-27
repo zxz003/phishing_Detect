@@ -59,17 +59,7 @@ if __name__ == '__main__':
     print ('\n')
     print("Confusion matrix:\n%s" % confusion_matrix)
     print ('\n')
-    '''
-    Note:
-    1. Precision: P = TP/TP + FP - all correct classified / all classified
 
-    2. Recall: R = TP/TP + FN - all correct classified / should be classified
-
-    3. F1 weight the Precision and Recall, in other word choose which one is more important
-        Default is P = R 
-
-    4. Support is the number of occurrences of each class in test_outputs
-    '''
     print ('precision: \t{}'.format(precision))
     print ('recall: \t{}'.format(recall))
     print ('fscore: \t{}'.format(fscore))
@@ -77,14 +67,3 @@ if __name__ == '__main__':
 
     importance = classifier.feature_importances_
     print "\nFeature Importances: \n" + str(importance)
-
-
-    #1. training size and testing accurcy
-    #2. select which feature is more important?
-    #3. and which subset is more important to determine the phishing site
-    #4. try different classifier for the dataset
-    #5. statical test and T-test for selecting useful features
-
-
-    # forward feature addition
-    # backward feature elimination
