@@ -1,0 +1,9 @@
+from sklearn import metrics
+    
+    #in body
+    fpr, tpr, thresholds = metrics.roc_curve(test_outputs,predictions)
+    auc = metrics.auc(fpr, tpr)
+    #print accuracy precision recall f1 here
+    print ('FPR: \t{}'.format(fpr))
+    print ('TPR: \t{}'.format(tpr))
+    print ('AUC: \t{}'.format(auc))
