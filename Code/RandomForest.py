@@ -79,7 +79,5 @@ if __name__ == '__main__':
     print ('TPR: \t{}'.format(tpr))
     print ('AUC: \t{}'.format(auc))
 
-
-
     importance = classifier.feature_importances_
     print "\nFeature Importances: \n" + str(importance)
