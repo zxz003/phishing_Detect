@@ -87,6 +87,7 @@ if __name__ == '__main__':
     print ('TPR: \t{}'.format(tpr))
     print ('AUC: \t{}'.format(roc_auc))
 
+<<<<<<< HEAD
     print ('\n')
 
     plt.figure()
@@ -102,5 +103,7 @@ if __name__ == '__main__':
     plt.legend(loc="lower right")
     plt.show()
 
+=======
+>>>>>>> 3696df5ca9f3a1a0e948dd30b317d1cf737cc062
     importance = classifier.feature_importances_
     print "\nFeature Importances: \n" + str(importance)
