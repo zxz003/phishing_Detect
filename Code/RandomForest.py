@@ -16,7 +16,7 @@ def load_data():
 
     # Extract the inputs from the training data array (all columns but the last one)
     # inputs = training_data[:, [23,25,26,27]]
-    # inputs = training_data[:, [0,2,3,4,5,8,9,10,11,12,16,17,19,20,21,22,23,24,26,27,29]]    #Only 2
+    # inputs = training_data[:, [0,2,3,4,5,8,9,10,11,12,16,17,19,20,21,22,23,24,26,27,29]]
     # inputs = training_data[:, [1,6,7,13,14,15,25,28]]
     # inputs = training_data[:,:-1]
     inputs = training_data[:, [ 0, 1, 5, 6, 7, 8, 12, 13, 14, 15, 23, 24, 25, 26, 27, 28]] #95.8 - 16
@@ -77,9 +77,6 @@ if __name__ == '__main__':
 
     print ('\n')
 
-    TPR = np.array([0.511931, 0.78308, 0.915401, 0.941432, 0.947939])
-    FPR = np.array([0.530303, 0.242424, 0.060606, 0.03367, 0.021886])
-
     fpr, tpr,_ = roc_curve(test_outputs,predictions)
     roc_auc = auc(fpr, tpr)
 
@@ -88,6 +85,9 @@ if __name__ == '__main__':
     print ('AUC: \t{}'.format(roc_auc))
 
     print ('\n')
+
+    importance = classifier.feature_importances_
+    print "\nFeature Importances: \n" + str(importance)
 
     plt.figure()
     lw = 3  # Line width
@@ -98,9 +98,6 @@ if __name__ == '__main__':
     plt.ylim([0.0, 1.05])
     plt.xlabel('False Positive Rate')
     plt.ylabel('True Positive Rate')
-    plt.title('Receiver operating characteristic example')
+    plt.title('ROC for Current Set')
     plt.legend(loc="lower right")
     plt.show()
-
-    importance = classifier.feature_importances_
-    print "\nFeature Importances: \n" + str(importance)
