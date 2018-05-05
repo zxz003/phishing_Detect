@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import scikitplot as skplt
 
 from sklearn import metrics
 from sklearn.ensemble import RandomForestClassifier as RFC
@@ -15,11 +16,12 @@ def load_data():
     training_data = np.genfromtxt('dataset.csv', delimiter=',', dtype=np.int32)
 
     # Extract the inputs from the training data array (all columns but the last one)
+
     # inputs = training_data[:, [23,25,26,27]]
     # inputs = training_data[:, [0,2,3,4,5,8,9,10,11,12,16,17,19,20,21,22,23,24,26,27,29]]
     # inputs = training_data[:, [1,6,7,13,14,15,25,28]]
     # inputs = training_data[:,:-1]
-    inputs = training_data[:, [ 0, 1, 5, 6, 7, 8, 12, 13, 14, 15, 23, 24, 25, 26, 27, 28]] #95.8 - 16
+    inputs = training_data[:, [ 0, 1, 5, 6, 7, 8, 12, 13, 14, 15, 23, 24, 25, 26, 27, 28]]                              #95.8 - 16
 
 
     # Extract the outputs from the training data array (last column)
@@ -28,7 +30,8 @@ def load_data():
     # Separate the training and testing data
     training_inputs = inputs[:10000]
     training_outputs = outputs[:10000]
-    # testing size is 1054
+
+    # testing size is 1055
     testing_inputs = inputs[10000:]
     testing_outputs = outputs[10000:]
 
@@ -46,58 +49,50 @@ if __name__ == '__main__':
     classifier = RFC()
     print "Random Forest classifier created."
 
+
     print "Beginning model training."
     # Train the RF classifier
-    classifier.fit(train_inputs, train_outputs)
+    RF = classifier.fit(train_inputs, train_outputs)
+    test_probas = RF.predict_proba(test_inputs)
+
+    print ('test_probas: \t{}'.format(test_probas))
+
     print "Model training completed."
 
     # Use the trained classifier to make predictions on the test data
     predictions = classifier.predict(test_inputs)
+
     print "Predictions on testing data computed."
 
     # Print the accuracy (percentage of phishing websites correctly predicted)
     accuracy = 100.0 * accuracy_score(test_outputs, predictions)
-    print "\nThe Accuracy of Random Forest on testing data is: " + str(accuracy)
+    print "\nThe Accuracy of Random Forest on testing data is: " + str(accuracy) + "\n"
 
     precision, recall, fscore, support = score(test_outputs, predictions)
     confusion_matrix = ConfusionMatrix(test_outputs, predictions)
-    print ('\n')
+
+    # print out confusion matrix
     print("Confusion matrix:\n%s" % confusion_matrix)
     print ('\n')
-    
-    #in body
-    #fpr, tpr, thresholds = metrics.roc_curve(test_outputs,predictions)
-    #auc = metrics.auc(fpr, tpr)
-    #print accuracy precision recall f1 here
 
     print ('precision: \t{}'.format(precision))
     print ('recall: \t{}'.format(recall))
     print ('fscore: \t{}'.format(fscore))
     print ('support: \t{}'.format(support))
 
-    print ('\n')
-
-    fpr, tpr,_ = roc_curve(test_outputs,predictions)
-    roc_auc = auc(fpr, tpr)
+    #calculate the FPR, TPR and threshold for current feature set
+    fpr, tpr, thresholds = roc_curve(predictions,test_outputs)
+    roc_auc = metrics.auc(fpr, tpr)
 
     print ('FPR: \t{}'.format(fpr))
     print ('TPR: \t{}'.format(tpr))
+    print ('Thresholds: \t{}'.format(thresholds))
     print ('AUC: \t{}'.format(roc_auc))
 
-    print ('\n')
-
+    #Show the feature importance for current set
     importance = classifier.feature_importances_
     print "\nFeature Importances: \n" + str(importance)
 
-    plt.figure()
-    lw = 3  # Line width
-    plt.plot(fpr, tpr, color='darkorange',
-             lw=lw, label='ROC curve (area = %0.2f)' % roc_auc)
-    plt.plot([0, 1], [0, 1], color='navy', lw=lw, linestyle='--')
-    plt.xlim([0.0, 1.0])
-    plt.ylim([0.0, 1.05])
-    plt.xlabel('False Positive Rate')
-    plt.ylabel('True Positive Rate')
-    plt.title('ROC for Current Set')
-    plt.legend(loc="lower right")
+    #plot the RoC curve based on test outputs and test_probas
+    skplt.metrics.plot_roc_curve(test_outputs,test_probas)
     plt.show()
