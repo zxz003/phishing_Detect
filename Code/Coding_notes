@@ -25,3 +25,6 @@
 
     TPR = np.array([0.511931, 0.78308, 0.915401, 0.941432, 0.947939])
     FPR = np.array([0.530303, 0.242424, 0.060606, 0.03367, 0.021886])
+    
+    Some question about New RoC graph:
+    1. Why the AUC is bigger than it should be? (different threshold? micro/macro?)
