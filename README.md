@@ -1,6 +1,9 @@
 # Detect Phishing Website Using Machine Learning Techniques
 This repo is for Spring 2018 OSS project. Detecting phishing website via different machine learning techniques. Some of our code was from or inspired by npapernot's "Detecting phishing websites using a decision tree" you can find more [here](https://github.com/npapernot/phishing-detection).
 
+## Publication
+You can see the published results [here](https://link.springer.com/chapter/10.1007%2F978-3-030-00557-3_46).
+
 ## Installation and Setup
 Just clone the repo and goto code section run the RandomForest.py and you can see the results.
 
